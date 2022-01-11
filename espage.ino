@@ -9,7 +9,8 @@ ESP8266WiFiMulti WiFiMulti;
 
 float sensorValue;
 
-//head and refresher of html page
+//head and refresher of html page, set at "1" second
+//programmed to flash memory to save space
 char ind[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html>
@@ -24,13 +25,14 @@ void setup()
   
   WiFi.mode(WIFI_STA);
   /*d1 mini pro seems to have problems with the standard
-   * arduino library, so I recommend using the
+   * arduino wifi library, so I recommend using the
    * esp8266wifimulti library, namely addAP for
    * establishing connections*/
-  WiFiMulti.addAP("xxx", "xxx");
+  WiFiMulti.addAP("SSID", "PASS");
   Serial.begin(115200);
 
   //LED will show once connection is established
+  //HIGH and LOW are reversed when programming to esp8266
   while(WiFi.status()!=WL_CONNECTED)
   {
     digitalWrite(LED_BUILTIN, HIGH);
